@@ -18,7 +18,7 @@ shutdownLED = 21
 
 # log level setting
 logLevel=logging.INFO
-
+logFile ='/var/log/shutdwnSwitch.log'
 #
 # logger setup
 #
@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logLevel)
 
 # create a file handler
-handler = logging.FileHandler('shutdwnSwitch.log')
+handler = logging.FileHandler(logFile)
 handler.setLevel(logLevel)
 
 # create a logging format
