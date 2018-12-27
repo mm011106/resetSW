@@ -11,21 +11,24 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
-pin = 17
+shutdownSw = 17
+shutdownLED = 21
 
 def gpioInterrupt(channel):
     print("Capture the falling edge !")
     sw_counter=0
 
     while True:
-        sw_status = GPIO.input(pin)
+        sw_status = GPIO.input(shutdownSw)
         sw_counter = sw_counter + 1
-        
+
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
                 print(".. Will you stop, Dave? Stop, Dave. I'm afraid.....")
+                GPIO.output(shutdownLED, GPIO.HI)
           # os.system("sudo shutdown -h now")
+
                 break
         else:
             # in case the signal got back to stedy state within 3sec
@@ -36,9 +39,11 @@ def gpioInterrupt(channel):
     return sw_counter
 
 # make the 'pin' input and pulled up.
-GPIO.setup(pin, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(shutdownSw, GPIO.IN, GPIO.PUD_UP)
 # capture the falling edge of the signal, estimated bounce would be 0.5s and call a funcgtion
-GPIO.add_event_detect(pin, GPIO.FALLING, callback=gpioInterrupt, bouncetime=500)
+GPIO.add_event_detect(shutdownSw, GPIO.FALLING, callback=gpioInterrupt, bouncetime=500)
+
+GPIO.setup(shutdownLED, GPIO.OUT, initial=GPIO.LOW)
 
 try:
     while(True):
