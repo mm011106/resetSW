@@ -13,14 +13,14 @@ import time
 # logger setup
 import logging
 
-logLevel=logging.WARNING
+logLevel=logging.DEBUG
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logLevel)
 
 # create a file handler
-handler = logging.FileHandler('shutdwnSw.log')
-handler.setLevel(logging.WARNING)
+handler = logging.FileHandler('shutdwnSwitch.log')
+handler.setLevel(logLevel)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
