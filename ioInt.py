@@ -1,8 +1,11 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/python2.7
 #
+#　シャットダウンスイッチのハンドリング
+#　use GPIO 17 as input, upll-up
 #
-#
+#  GPIO17を3秒程度 Lo に保持すると、シャットダウンプロセスを起動するスクリプト
+#　短時間の押下では反応しないようになっている
 
 import RPi.GPIO as GPIO
 import time
@@ -17,6 +20,7 @@ def gpioInterrupt(channel):
     while True:
         sw_status = GPIO.input(pin)
         sw_counter = sw_counter + 1
+        
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
@@ -24,6 +28,7 @@ def gpioInterrupt(channel):
           # os.system("sudo shutdown -h now")
                 break
         else:
+            # in case the signal got back to stedy state within 3sec
             print("I'm sorry Dave, I'm afraid You can't do that")
             break
 
