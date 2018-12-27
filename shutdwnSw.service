@@ -1,5 +1,5 @@
 # this file should be located
-#  /usr/lib/systemd/system/
+#  /lib/systemd/system/
 #
 # to activate this:
 #    $ sudo systemctl enable shutdwnSw.service
