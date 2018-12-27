@@ -26,7 +26,7 @@ def gpioInterrupt(channel):
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
                 print(".. Will you stop, Dave? Stop, Dave. I'm afraid.....")
-                GPIO.output(shutdownLED, GPIO.HI)
+                GPIO.output(shutdownLED, GPIO.HIGH)
           # os.system("sudo shutdown -h now")
 
                 break
