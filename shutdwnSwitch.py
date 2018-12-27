@@ -10,7 +10,29 @@
 import RPi.GPIO as GPIO
 import time
 
+# logger setup
+import logging
+
+logLevel=logging.WARNING
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logLevel)
+
+# create a file handler
+handler = logging.FileHandler('shutdwnSw.log')
+handler.setLevel(logging.WARNING)
+
+# create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(handler)
+
+
 GPIO.setmode(GPIO.BCM)
+
+# GPIO assign
 shutdownSw = 17
 shutdownLED = 21
 
@@ -25,14 +47,15 @@ def gpioInterrupt(channel):
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
-                print(".. Will you stop, Dave? Stop, Dave. I'm afraid.....")
+                logger.debug(".. Will you stop, Dave? Stop, Dave. I\'m afraid....")
+                logger.info('Shutdown SW acceptted..')
                 GPIO.output(shutdownLED, GPIO.HIGH)
-          # os.system("sudo shutdown -h now")
-
+                # os.system("sudo shutdown -h now")
                 break
         else:
             # in case the signal got back to stedy state within 3sec
-            print("I'm sorry Dave, I'm afraid You can't do that")
+            logger.debug("I'm sorry Dave, I'm afraid You can't do that")
+            logger.info("shutdown SW was touched. No action activated.")
             break
 
         time.sleep(0.01)
