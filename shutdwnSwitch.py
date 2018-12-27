@@ -9,12 +9,19 @@
 
 import RPi.GPIO as GPIO
 import time
-
-# logger setup
 import logging
+import os
 
+# GPIO assign
+shutdownSw = 17
+shutdownLED = 21
+
+# log level setting
 logLevel=logging.INFO
 
+#
+# logger setup
+#
 logger = logging.getLogger(__name__)
 logger.setLevel(logLevel)
 
@@ -29,12 +36,8 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
-
+# GPIO setup
 GPIO.setmode(GPIO.BCM)
-
-# GPIO assign
-shutdownSw = 17
-shutdownLED = 21
 
 def gpioInterrupt(channel):
 #    print("Capture the falling edge !")
@@ -47,11 +50,11 @@ def gpioInterrupt(channel):
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
-#                print(" shutdown process activated...")
+                # print(" shutdown process activated...")
                 logger.debug(".. Will you stop, Dave? Stop, Dave. I\'m afraid....")
                 logger.info('Shutdown SW acceptted..')
                 GPIO.output(shutdownLED, GPIO.HIGH)
-                # os.system("sudo shutdown -h now")
+                os.system("sudo shutdown -h now")
                 break
         else:
             # in case the signal got back to stedy state within 3sec
@@ -66,7 +69,7 @@ def gpioInterrupt(channel):
 GPIO.setup(shutdownSw, GPIO.IN, GPIO.PUD_UP)
 # capture the falling edge of the signal, estimated bounce would be 0.5s and call a funcgtion
 GPIO.add_event_detect(shutdownSw, GPIO.FALLING, callback=gpioInterrupt, bouncetime=500)
-
+# setup LED indicating sutting down
 GPIO.setup(shutdownLED, GPIO.OUT, initial=GPIO.LOW)
 
 try:
