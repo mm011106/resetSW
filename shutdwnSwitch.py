@@ -47,6 +47,7 @@ def gpioInterrupt(channel):
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
+                print(" shutdown process activated...")
                 logger.debug(".. Will you stop, Dave? Stop, Dave. I\'m afraid....")
                 logger.info('Shutdown SW acceptted..')
                 GPIO.output(shutdownLED, GPIO.HIGH)
