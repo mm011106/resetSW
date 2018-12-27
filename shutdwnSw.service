@@ -1,0 +1,10 @@
+[Unit]
+Description=Shutdown Switch watcher
+
+[Service]
+ExecStart =/usr/bin/python2.7 /home/pi/documents/resetSW/shutdwnSwitch.py
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
