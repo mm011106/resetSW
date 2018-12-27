@@ -1,35 +1,43 @@
 # -*- coding:utf-8 -*-
+#!/usr/bin/python2.7
 #
+#
+#
+
 import RPi.GPIO as GPIO
-import time 
+import time
 
 GPIO.setmode(GPIO.BCM)
 pin = 17
 
-def callBackTest(channel):
-    print("callback")
+def gpioInterrupt(channel):
+    print("Capture the falling edge !")
     sw_counter=0
+
     while True:
         sw_status = GPIO.input(pin)
         sw_counter = sw_counter + 1
         if sw_status == 0:
             if sw_counter >= 300:
-                print("長押し検知！")
+                # in case the signal fixed to "Low" in 3sec
+                print(".. Will you stop, Dave? Stop, Dave. I'm afraid.....")
           # os.system("sudo shutdown -h now")
                 break
         else:
-            print("短押し検知")
+            print("I'm sorry Dave, I'm afraid You can't do that")
             break
 
         time.sleep(0.01)
     return sw_counter
 
+# make the 'pin' input and pulled up.
 GPIO.setup(pin, GPIO.IN, GPIO.PUD_UP)
-GPIO.add_event_detect(pin, GPIO.FALLING, callback=callBackTest, bouncetime=500) 
+# capture the falling edge of the signal, estimated bounce would be 0.5s and call a funcgtion
+GPIO.add_event_detect(pin, GPIO.FALLING, callback=gpioInterrupt, bouncetime=500)
 
 try:
     while(True):
-        time.sleep(1)
+        time.sleep(10)
 
 except KeyboardInterrupt:
     print("break")
