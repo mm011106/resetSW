@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/python2.7
+# -*- coding:utf-8 -*-
 #
 #　シャットダウンスイッチのハンドリング
 #　use GPIO 17 as input, upll-up
@@ -13,7 +13,7 @@ import time
 # logger setup
 import logging
 
-logLevel=logging.DEBUG
+logLevel=logging.INFO
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logLevel)
@@ -37,7 +37,7 @@ shutdownSw = 17
 shutdownLED = 21
 
 def gpioInterrupt(channel):
-    print("Capture the falling edge !")
+#    print("Capture the falling edge !")
     sw_counter=0
 
     while True:
@@ -47,7 +47,7 @@ def gpioInterrupt(channel):
         if sw_status == 0:
             if sw_counter >= 300:
                 # in case the signal fixed to "Low" in 3sec
-                print(" shutdown process activated...")
+#                print(" shutdown process activated...")
                 logger.debug(".. Will you stop, Dave? Stop, Dave. I\'m afraid....")
                 logger.info('Shutdown SW acceptted..')
                 GPIO.output(shutdownLED, GPIO.HIGH)
@@ -56,7 +56,7 @@ def gpioInterrupt(channel):
         else:
             # in case the signal got back to stedy state within 3sec
             logger.debug("I'm sorry Dave, I'm afraid You can't do that")
-            logger.info("shutdown SW was touched. No action activated.")
+            logger.info("shutdown SW was touched. No action activated. : %d",sw_counter )
             break
 
         time.sleep(0.01)
