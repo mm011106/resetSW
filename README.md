@@ -16,3 +16,15 @@
 - `/lib/systemd/system/shutdwnSw.service`
 - `sudo systemctl status shutdwnSw.service` で確認
 - `sudo systemctl stop|start shutdwnSw.service`で、手動で 停止｜起動
+
+
+## 動作確認例
+$ sudo systemctl status shutdwnSw.service 
+● shutdwnSw.service - Shutdown Switch watcher
+   Loaded: loaded (/lib/systemd/system/shutdwnSw.service; enabled; vendor preset
+   Active: active (running) since Sun 2019-03-31 02:39:17 BST; 5min ago
+ Main PID: 215 (python2.7)
+   CGroup: /system.slice/shutdwnSw.service
+           └─215 /usr/bin/python2.7 /home/pi/documents/resetSW/shutdwnSwitch.py
+
+Mar 31 02:39:17 raspberrypi systemd[1]: Started Shutdown Switch watcher.
