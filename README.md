@@ -19,6 +19,7 @@
 
 
 ## 動作確認例
+'''
 $ sudo systemctl status shutdwnSw.service 
 ● shutdwnSw.service - Shutdown Switch watcher
    Loaded: loaded (/lib/systemd/system/shutdwnSw.service; enabled; vendor preset
@@ -28,5 +29,5 @@ $ sudo systemctl status shutdwnSw.service
            └─215 /usr/bin/python2.7 /home/pi/documents/resetSW/shutdwnSwitch.py
 
 Mar 31 02:39:17 raspberrypi systemd[1]: Started Shutdown Switch watcher.
-
+'''
 [systemctl](https://qiita.com/sinsengumi/items/24d726ec6c761fc75cc9)コマンドについて
