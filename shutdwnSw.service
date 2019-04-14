@@ -1,10 +1,10 @@
 # this file should be located
 #  /lib/systemd/system/
 #
-# to activate this:
+# to activate this service:
 #    $ sudo systemctl enable shutdwnSw.service
 #
-# befor 'enabe' this, you can test this as follows:
+# befor 'enable' this, you can test this as follows:
 #    $ sudo systemctl start shutdwnSw.service
 #    $ sudo systemctl stop shutdwnSw.service
 
