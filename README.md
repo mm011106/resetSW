@@ -16,6 +16,7 @@
 - `/lib/systemd/system/shutdwnSw.service`
 - `sudo systemctl status shutdwnSw.service` で確認
 - `sudo systemctl stop|start shutdwnSw.service`で、手動で 停止｜起動
+- `sudo systemctl enable shutdwnSw.service`で、永続化
 
 
 ## 動作確認例
